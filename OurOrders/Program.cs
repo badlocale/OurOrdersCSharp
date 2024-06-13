@@ -26,15 +26,15 @@ namespace OurOrders
 
             public void Update(OrderLogEntry orderLogEntry)
             {
+                if (orderLogEntry.Deleted || orderLogEntry.Volume is 0)
+                {
+                    return;
+                }
+
                 var oldEntry = _entries.FirstOrDefault(o => o.Id == orderLogEntry.Id);
                 if (oldEntry != null)
                 {
                     _entries.Remove(oldEntry);
-                }
-
-                if (orderLogEntry.Deleted || orderLogEntry.Volume is 0)
-                {
-                    return;
                 }
 
                 _entries.Add(orderLogEntry);
