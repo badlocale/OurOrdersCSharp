@@ -40,12 +40,10 @@ namespace OurOrders
                 _entries.Add(orderLogEntry);
             }            
 
-            public IEnumerable<Tuple<decimal, long>> GetLevels()
-            {
-                return _entries
+            public IEnumerable<Tuple<decimal, long>> GetLevels() => 
+                _entries
                     .GroupBy(o => o.Price, o => o.Volume)
                     .Select(o => new Tuple<decimal, long>(o.Key, o.Sum()));
-            }
         }
     }
 }
